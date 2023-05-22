@@ -1,0 +1,142 @@
+* {
+  margin: 0; /*borda por fora da caixa*/
+  padding: 0; /*borda por dentro da caixa*/
+  box-sizing: border-box; /*O tamanho agora levará em conta até a borda*/
+}
+:root {
+  font-size: 16px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background-color: #2c2c31;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #9e9ea0;
+}
+@keyframes entering {
+  from {
+    opacity: 0;
+    transform: translateY(-200px);
+  }
+   {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+body {
+  background-color: #121215; /*cor de fundo */
+  color: #eaeaea; /*cor da fonte*/
+  font-family: "Roboto", sans-serif;
+
+  display: grid;
+  grid-template-areas: "profile timeline";
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 100vh;
+}
+nav {
+  padding: 64px;
+  grid-area: timeline;
+
+  overflow-y: scroll; /*só vai rolar para baixo o lado direito da pag = nav*/
+  animation: entering 0.7s ease-in-out;
+}
+.memory {
+  display: flex; /*espaçar linhas flexibilizando*/
+  flex-direction: column; /*flexibilizar na vertical*/
+  gap: 16px; /*entre cada linha terá esse espaçamento*/
+
+  text-decoration: none;
+  margin-bottom: 64px;
+}
+.memory small {
+  color: #bebebf;
+  font-size: 0.75rem; /*tamanho da fonte*/
+}
+.memory h1 {
+  font-size: 2rem;
+  color: #eaeaea;
+}
+.memory img {
+  width: 100%; /*largura*/
+  height: 280px; /*altura*/
+  object-fit: cover; /*torna a imagem como uma capa*/
+  border-radius: 8px; /*arredonda as bordas*/
+  transition: transform 0.3s ease-in-out; /*animação do zoom da imagem*/
+}
+.memory:hover img {
+  transform: scale(1.1); /*zoom da imagem e o 1.1 aumenta a escala em 10%*/
+}
+.memory div {
+  width: 100%; /*largura*/
+  height: 280px; /*altura*/
+  overflow: hidden; /*quando passar o mouse dar zoom sem aumentar a img*/
+  border-radius: 8px; /*arredonda as bordas*/
+}
+.memory p /*editando o paragrafo da minha classe memory*/ {
+  font-size: 1.2rem;
+  color: #bebebf;
+  line-height: 28px; /* espaçamento entre linhas */
+}
+aside {
+  grid-area: profile;
+  display: flex; /* um embaixo do outro */
+  flex-direction: column; /* centraliza a coluna */
+  align-items: center; /* centraliza na horizontal */
+  justify-content: center; /* centraliza na vertical */
+
+  border-right: 1px solid; /* inserindo borda entre um e outro */
+  border-image: linear-gradient(#727275, #2c2c31) 1; /*deixando em degrade a cor da linha*/
+  gap: 20px; /* espaçamento entre linhas*/
+
+  background-image: url(./assets/background.svg); /*imagem de fundo em form svg*/
+  background-position: top right; /* ref em cima e a direita*/
+  background-repeat: no-repeat; /* não repetir a imagem*/
+  background-size: auto 100; /*a imagem se posiciona melhor*/
+}
+aside * {
+  /*formatação de todos os atributos do aside (lado esquerdo)*/
+  animation: entering 0.7s ease-in-out;
+}
+aside img:nth-child(2) /*usa o nth child para escolher a image filha e editar ela*/ {
+  width: 160px; /*largura da imagem*/
+  height: 160px; /* altura da imagem*/
+  border-radius: 50%; /*arredonda a imagem*/
+
+  border: 4px solid transparent; /*borda cor transparente para utilizar o degrade gradient*/
+  background: linear-gradient(#d39e33, #ed5636, #633bbc) padding-box,
+    linear-gradient(260deg, #d39e33, #ed5636, #633bbc) border-box; /*edições da borda da img*/
+}
+aside p {
+  /*formarando paragrafos do lado esquerdo*/
+  font-size: 2rem;
+  text-align: center;
+}
+aside span {
+  font-size: 0.75rem;
+  color: #9e9ea0;
+}
+@media (max-width: 768px) /*formatação para ficar bem separado em celulares*/ {
+  :root {
+    font-size: 14px;
+  }
+  body {
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.2fr 0.8fr;
+    grid-template-areas:
+      "profile"
+      "timeline";
+  }
+  aside {
+    border-right: none; /*tirar a borda nos celulares (menor largura)*/
+    padding: 32px 12px; /*32 em cima e embaixo e 12 dos lados*/
+  }
+  nav {
+    overflow-y: visible;
+    padding: 22px;
+  }
+}
